@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+div {
+  font-family: "Comfortaa", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+.partnership-mySwiper {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 80px;
+}
+
+.partner-swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 400px;
+  height: 230px;
+  margin-bottom: 120px;
+}
+
+.partner-swiper-slide img {
+  display: block;
+  width: 360px;
+  height: 230px;
+  border-top-left-radius: 8px;
+}
+
+.partner-swiper-slide img:hover {
+  border-top-left-radius: 0px;
+  scale: 1.08;
+  transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 786px) {
+  .partnership-mySwiper {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 80px;
+    margin-left: 0; /* Adjust margin for small screens */
+    margin-top: -30px;
+  }
+
+  .partner-swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 50%; /* Make slides full width */
+    height: 280px; /* Adjust height for small screens */
+  }
+
+  .partner-swiper-slide img {
+    display: block;
+    width: 90%;
+    height: 90%;
+    border-top-left-radius: 0; /* Remove border radius on small screens */
+  }
+}
+@media (max-width: 540px) {
+  .partnership-mySwiper {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 80px;
+    margin-left: 0; /* Adjust margin for small screens */
+    margin-top: -30px;
+  }
+
+  .partner-swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 60%; /* Make slides full width */
+    height: 180px; /* Adjust height for small screens */
+  }
+
+  .partner-swiper-slide img {
+    display: block;
+    width: 90%;
+    height: 90%;
+    border-top-left-radius: 0; /* Remove border radius on small screens */
+  }
+}
+@media (max-width: 420px) {
+  .partnership-mySwiper {
+    width: 90%;
+    padding-top: 50px;
+    padding-bottom: 150px;
+    margin-left: 15px; /* Adjust margin for small screens */
+    margin-top: 30px;
+  }
+}

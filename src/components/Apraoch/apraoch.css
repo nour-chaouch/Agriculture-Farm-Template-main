@@ -1,0 +1,263 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+div {
+  font-family: "Comfortaa", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+.our-approach-div {
+  position: relative;
+  text-align: center;
+  color: rgb(201, 236, 236);
+}
+
+.aproach-vid-text {
+  position: absolute;
+  top: 37%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 23px;
+  font-family: cursive;
+  justify-content: center;
+  width: 100%;
+}
+.our-approach-vidImage {
+  height: 800px;
+  max-width: 100%;
+  object-fit: cover;
+  aspect-ratio: 21/9;
+}
+
+.form-hedding {
+  margin-bottom: 10%;
+}
+
+.text-container1 {
+  position: absolute;
+  width: 200px;
+  top: -12%;
+  left: 18%;
+  transform: translateX(-100%);
+}
+
+.text-container2 {
+  position: absolute;
+  width: 200px;
+  top: 92%;
+  left: 25%;
+  transform: translateX(-100%);
+}
+
+.text-container3 {
+  position: absolute;
+  width: 200px;
+  top: -13%;
+  right: -56%;
+  transform: translateX(-100%);
+}
+
+.text-container4 {
+  position: absolute;
+  width: 200px;
+  top: 94%;
+  right: -53%;
+  transform: translateX(-100%);
+}
+
+.dotted-circle {
+  position: relative;
+  width: 530px;
+  height: 530px;
+  border: 3px dotted green;
+  border-radius: 50%;
+  display: flex;
+}
+
+.circle-image {
+  width: 120px; /* Adjust the image size as needed */
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.approach-centerImage {
+  height: 300px;
+  width: 430px;
+  position: absolute;
+  top: 20%;
+  left: 12%;
+}
+
+.img-topLeft {
+  top: 5%;
+  left: 25%;
+  transform: translateX(-100%);
+}
+
+.img-bottomLeft {
+  top: 80%;
+  right: 20;
+  transform: translateY(-50%);
+}
+
+.img-bottomRight {
+  bottom: 5%;
+  left: 85%;
+  transform: translateX(-50%);
+}
+
+.img-topRight {
+  top: 18%;
+  left: 76%;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 768px) {
+  .form-hedding {
+    margin-bottom: 7%;
+  }
+
+  .circles-por {
+    padding-right: 6%;
+  }
+
+  .our-approach-vidImage {
+    height: 400px;
+  }
+
+  .dotted-circle {
+    position: relative;
+    width: 370px;
+    height: 370px;
+    border: 2px dotted green;
+    border-radius: 50%;
+    display: flex;
+  }
+
+  .text-container1 {
+    width: 160px;
+    position: absolute;
+    top: -18%;
+    left: 25%;
+    transform: translateX(-100%);
+  }
+
+  .text-container2 {
+    width: 160px;
+    position: absolute;
+    top: 90%;
+    left: 25%;
+    transform: translateX(-100%);
+  }
+
+  .text-container3 {
+    width: 160px;
+    position: absolute;
+    top: -22%;
+    right: -50%;
+    transform: translateX(-100%);
+  }
+
+  .text-container4 {
+    width: 160px;
+    position: absolute;
+    top: 95%;
+    right: -60%;
+    transform: translateX(-100%);
+  }
+  .approach-centerImage {
+    position: absolute;
+    top: 20%;
+    left: 12%;
+    height: 220px;
+    width: 330px;
+  }
+  .circle-image {
+    width: 90px; /* Adjust the image size as needed */
+    height: 90px;
+  }
+
+  .descreption-text {
+    font-size: small;
+  }
+}
+
+@media (max-width: 420px) {
+  .form-hedding {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    text-align: center;
+  }
+
+  .our-approach-vidImage {
+    height: 250px;
+  }
+
+  .dotted-circle {
+    position: relative;
+    width: 300px;
+    height: 280px;
+    border: 2px dotted green;
+    border-radius: 50%;
+    display: flex;
+  }
+
+  .text-container1 {
+    width: 130px;
+    position: absolute;
+    top: -25%;
+    left: 45%;
+    transform: translateX(-100%);
+  }
+
+  .text-container2 {
+    width: 130px;
+    position: absolute;
+    top: 90%;
+    left: 45%;
+    transform: translateX(-100%);
+  }
+
+  .text-container3 {
+    width: 130px;
+    position: absolute;
+    top: -22%;
+    right: -50%;
+    transform: translateX(-100%);
+  }
+
+  .text-container4 {
+    width: 130px;
+    position: absolute;
+    top: 92%;
+    right: -50%;
+    transform: translateX(-100%);
+  }
+
+  .approach-centerImage {
+    position: absolute;
+    top: 18%;
+    left: 3%;
+    height: 180px;
+    width: 270px;
+  }
+  .circle-image {
+    width: 60px; /* Adjust the image size as needed */
+    height: 60px;
+  }
+
+  .title-text {
+    font-size: large;
+  }
+  .descreption-text {
+    font-size: xx-small;
+  }
+}
+
+.vid-div {
+  z-index: 10;
+}

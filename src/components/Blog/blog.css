@@ -1,0 +1,43 @@
+.focus{
+    border: 1px solid gray;
+}
+
+.focus:focus{
+    border:1px solid #CCB100;
+}
+.post-button:hover{
+    background-color: #CCB100;
+    transition: all .3s ease-in;
+}
+@media (max-width:767px) {
+    .none-comment-img{
+        display: none;
+    }
+
+}
+
+@media (max-width:400px){
+    .recent-posts{
+        padding:20px 10px;
+    }
+    .recent-post-img-div{
+        max-width: 25%;
+        max-height: 13vh;
+    }
+
+    .recent-post-div{
+        gap: 8px;
+    }
+    .detail-recent-post {
+        gap: 16px;
+    }
+
+}
+.scroll-slow {
+    scroll-behavior: smooth; 
+  }
+  
+  .scroll-fast {
+    scroll-behavior: auto; 
+  }
+   
