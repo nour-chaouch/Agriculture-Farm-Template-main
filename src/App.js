@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "tailwindcss/tailwind.css";
 import "./App.css";
+import "./components/NHeroSection/NheroSection.css";
+import "./components/Services/service.css";
+import "./components/Testimonial/testimonial.css";
+import "./components/TeamMambers/TeamMembers.css";
 import { HashLoader } from "react-spinners";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -132,6 +136,8 @@ const aboutData = [
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [visibleSections, setVisibleSections] = useState(new Set());
+  const sectionRefs = useRef({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -142,11 +148,42 @@ function App() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSections(prev => new Set([...prev, entry.target.id]));
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    Object.values(sectionRefs.current).forEach(ref => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, [loading]);
+
+  const setSectionRef = (id) => (ref) => {
+    if (ref) {
+      sectionRefs.current[id] = ref;
+      ref.id = id;
+    }
+  };
+
   return (
     <div className="App">
       {loading ? (
-        <div className="flex justify-center items-center h-screen bg-green-400">
-          <HashLoader className="text-gray-700" size={80} />
+        <div className="flex flex-col justify-center items-center h-screen bg-gradient-to-br from-green-400 to-green-600 animate-pulse">
+          <div className="mb-8">
+            <HashLoader className="text-white" size={80} />
+          </div>
+          <div className="text-white text-xl font-semibold animate-bounce">
+            Loading Farm Management System...
+          </div>
         </div>
       ) : (
         <div>
@@ -154,21 +191,26 @@ function App() {
           <section className="">
             <div className="slider">
               <div className="slide current">
-                <div>
-                  <img src={sliderData[0].image} alt="slide" className="image" />
-                  <div className="content">
-                    <h2>{sliderData[0].heading}</h2>
-                    <p>{sliderData[0].desc}</p>
-                    <hr />
-                    <button className="--btn --btn-primary">Get Started</button>
-                  </div>
+                <img src={sliderData[0].image} alt="slide" />
+                <div className="content">
+                  <h2>{sliderData[0].heading}</h2>
+                  <p>{sliderData[0].desc}</p>
+                  <hr />
+                  <button className="--btn --btn-primary">Get Started</button>
                 </div>
               </div>
             </div>
           </section>
 
           {/* About Section */}
-          <section className="grid grid-cols-1 mt-20 mr-10 gap-20 md:grid-cols-2 lg:grid-cols-2">
+          <section 
+            ref={setSectionRef('about')}
+            className={`grid grid-cols-1 mt-20 mr-10 gap-20 md:grid-cols-2 lg:grid-cols-2 transition-all duration-1000 ${
+              visibleSections.has('about') 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-10'
+            }`}
+          >
             <div className="md:ml-8 lg:ml-2">
               <span className="flex justify-start ml-6 items-center gap-2">
                 <img className="w-8" src={secImg} alt="" />
@@ -187,7 +229,12 @@ function App() {
                 {aboutData.map((data, index) => (
                   <div
                     key={index}
-                    className="flex flex-col md:flex-row justify-center items-center gap-3 item-center mb-4 md:mb-8 lg:mb-10 mr-3 md:mr-6"
+                    className={`flex flex-col md:flex-row justify-center items-center gap-3 item-center mb-4 md:mb-8 lg:mb-10 mr-3 md:mr-6 transform transition-all duration-700 hover:scale-105 hover:shadow-lg ${
+                      visibleSections.has('about') 
+                        ? 'opacity-100 translate-x-0' 
+                        : 'opacity-0 translate-x-10'
+                    }`}
+                    style={{ transitionDelay: `${index * 200}ms` }}
                   >
                     <img
                       className="h-15 w-15 md:h-24 md:w-20 lg:h-23 lg:w-28 rounded-full bg-lime-100 hover:bg-orange-300 fill-white ml-3 md:ml-0"
@@ -207,7 +254,7 @@ function App() {
               </div>
               <a
                 href="/"
-                className="inline-flex items-center justify-center px-5 py-3 text-base md:text-lg lg:text-xl font-medium text-center text-white bg-red-500 rounded-lg hover:bg-orange-300 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 ml-4 mt-8"
+                className="inline-flex items-center justify-center px-5 py-3 text-base md:text-lg lg:text-xl font-medium text-center text-white bg-red-500 rounded-lg hover:bg-orange-300 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 ml-4 mt-8 transform transition-all duration-300 hover:scale-105 hover:shadow-xl animate-pulse hover:animate-none"
               >
                 Read More
                 <svg
@@ -230,17 +277,17 @@ function App() {
 
             <div className="image-container mt-8 md:mt-0 lg:ml-20 lg:mt-20 grid grid-cols-1 md:grid-cols-2 gap-4">
               <img
-                className="hover:scale-110 transition duration-500 cursor-pointer w-full md:w-auto md:max-w-1/2"
+                className="hover:scale-110 transition duration-500 cursor-pointer w-full md:w-auto md:max-w-1/2 transform hover:rotate-2 hover:shadow-2xl"
                 src="https://demo2.themelexus.com/farmor/wp-content/uploads/2023/09/h1-banner03.svg"
                 alt=""
               />
               <img
-                className="hover:scale-110 transition duration-500 cursor-pointer w-full mt-4 md:mt-0 md:w-auto md:max-w-1/2"
+                className="hover:scale-110 transition duration-500 cursor-pointer w-full mt-4 md:mt-0 md:w-auto md:max-w-1/2 transform hover:rotate-2 hover:shadow-2xl"
                 src={mainImage1}
                 alt=""
               />
               <img
-                className="hover:scale-110 transition duration-500 cursor-pointer w-full mt-4 md:mt-0 md:w-auto md:max-w-1/2"
+                className="hover:scale-110 transition duration-500 cursor-pointer w-full mt-4 md:mt-0 md:w-auto md:max-w-1/2 transform hover:rotate-2 hover:shadow-2xl"
                 src={mainImage2}
                 alt=""
               />
@@ -248,15 +295,32 @@ function App() {
           </section>
 
           {/* Testimonial Section */}
-          <section className="text-gray-600 body-font">
+          <section 
+            ref={setSectionRef('testimonial')}
+            className={`text-gray-600 body-font transition-all duration-1000 ${
+              visibleSections.has('testimonial') 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-10'
+            }`}
+          >
             <div className="container px-5 py-24 mx-auto">
-              <h1 className="text-3xl font-medium title-font text-gray-900 mb-12 text-center">
+              <h1 className="text-3xl font-medium title-font text-gray-900 mb-12 text-center animate-pulse">
                 Our Services
               </h1>
               <div className="md:px-4 p-1 py-6 testimonial-box">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {testimonialData.map((elm, index) => (
-                    <div key={index} className="md:p-4 p-2 bg-transparent">
+                    <div 
+                      key={index} 
+                      className={`md:p-4 p-2 bg-transparent transform transition-all duration-700 hover:scale-105 hover:shadow-xl ${
+                        index % 2 === 0 ? 'card-test' : 'card-test2'
+                      } ${
+                        visibleSections.has('testimonial') 
+                          ? 'opacity-100 translate-y-0' 
+                          : 'opacity-0 translate-y-10'
+                      }`}
+                      style={{ transitionDelay: `${index * 200}ms` }}
+                    >
                       <div className="h-full text-black p-8 rounded-lg shadow-lg">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -279,55 +343,101 @@ function App() {
           </section>
 
           {/* Service Section */}
-          <section className="service-div">
+          <section 
+            ref={setSectionRef('service')}
+            className={`service-div transition-all duration-1000 ${
+              visibleSections.has('service') 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-10'
+            }`}
+          >
             <div className="lg:mt-20">
               <div className="">
-                <span className="flex justify-center items-center gap-2">
+                <span className="flex justify-center items-center gap-2 animate-bounce">
                   <img className="w-8" src={secImg} alt="" />
                   <h3 className="flex justify-center items-center text-xl md:text-xl lg:text-2xl antialiased font-sans">
                     Our Service
                   </h3>
                 </span>
-                <h1 className="hedding flex justify-center items-center text-xl md:text-3xl lg:text-4xl antialiased font-sans">
+                <h1 className="hedding flex justify-center items-center text-xl md:text-3xl lg:text-4xl antialiased font-sans animate-pulse">
                   Supported crops and Herd Breeds
                 </h1>
               </div>
             </div>
             <div className="px-[6%]">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <Swiper
+                slidesPerView={3}
+                spaceBetween={30}
+                pagination={{
+                  clickable: true,
+                }}
+                modules={[Autoplay, Pagination]}
+                className="mySwiper"
+                autoplay={{
+                  delay: 3000,
+                  disableOnInteraction: true,
+                }}
+                breakpoints={{
+                  320: {
+                    slidesPerView: 1,
+                    spaceBetween: 20
+                  },
+                  768: {
+                    slidesPerView: 2,
+                    spaceBetween: 30
+                  },
+                  1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
+                  }
+                }}
+              >
                 {serviceData.map((slide, index) => (
-                  <div key={index}>
-                    <div className="bg-green-900 rounded-lg text-black transform transition-all ease-in-out duration-300 hover:text-white overflow-hidden h-80">
+                  <SwiperSlide key={index}>
+                    <div className="bg-green-900 rounded-lg text-black transform transition-all ease-in-out duration-500 hover:text-white overflow-hidden hover:scale-105 hover:shadow-2xl hover:rotate-1">
                       <a href="#" className="flex flex-col text-3xl mt-4 h-full">
-                        <img className="w-full h-48 object-cover" src={slide.imageUrl} alt={slide.altText} />
+                        <img className="w-full h-48 object-cover transition-transform duration-500 hover:scale-110" src={slide.imageUrl} alt={slide.altText} />
                         <span className="block text-sm md:text-base mt-2 mb-2 px-2 text-white text-center break-words">
                           {slide.linkText}
                         </span>
                       </a>
                     </div>
-                  </div>
+                  </SwiperSlide>
                 ))}
-              </div>
+              </Swiper>
             </div>
           </section>
 
           {/* Team Section */}
-          <section>
+          <section 
+            ref={setSectionRef('team')}
+            className={`transition-all duration-1000 ${
+              visibleSections.has('team') 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-10'
+            }`}
+          >
             <div className="px-8 pt-24 pb-28 xl:px-5 min-h-screen place-content-center grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-screen-xl mx-auto teams">
               <h1
                 style={{ color: "var(--orange-color)" }}
-                className="capitalize text-center mb-5 md:mb-10 sm:col-span-2 lg:col-span-4 text-4xl sm:text-5xl xl:text-4xl font-extrabold"
+                className="capitalize text-center mb-5 md:mb-10 sm:col-span-2 lg:col-span-4 text-4xl sm:text-5xl xl:text-4xl font-extrabold animate-pulse"
               >
                 Beneficiaries
               </h1>
               {teamData.map((team, index) => (
                 <div
                   key={index}
-                  className="bg-green-800 shadow-lg border-b-4 border-transparent group transition ease-in-out delay-150 hover:border-green-600 duration-300 cursor-pointer"
+                  className={`bg-green-800 shadow-lg border-b-4 border-transparent group transition-all duration-500 hover:border-green-600 cursor-pointer transform hover:scale-105 hover:shadow-2xl hover:rotate-1 ${
+                    visibleSections.has('team') 
+                      ? 'opacity-100 translate-y-0' 
+                      : 'opacity-0 translate-y-10'
+                  }`}
+                  style={{ transitionDelay: `${index * 200}ms` }}
+                  onMouseOver={() => {}}
                 >
                   <div className="pt-5 pb-7 px-5 text-center">
-                    <h2 className="text-xl font-semibold text-white">{team.name}</h2>
-                    <span className="text-gray-200 capitalize inline-block mt-1 mb-4">
+                    <h2 className="text-xl font-semibold text-white transform transition-all duration-300 hover:scale-110">{team.name}</h2>
+                    <span className="text-gray-200 capitalize inline-block mt-1 mb-4 transform transition-all duration-300 hover:scale-105">
                       {team.role}
                     </span>
                   </div>
